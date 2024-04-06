@@ -25,7 +25,7 @@ public class BasketSplitter {
 
     }
     public Map<String,List<String>> split(List<String> items){
-        Map<String,List<String>> splitResult=new HashMap<>();
+        Map<String,List<String>> splitResult=new LinkedHashMap<>();
         List<DeliveryMethods> allDeliverMethods=new ArrayList<>();
 
 
@@ -55,9 +55,10 @@ public class BasketSplitter {
                 }
             }
 
-
             splitResult.put(MostUsedDeliveryMethod,deliveredItems);
+
         }
+
 
         return splitResult;
     }
