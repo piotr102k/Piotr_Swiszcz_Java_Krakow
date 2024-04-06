@@ -27,10 +27,17 @@ public class BasketSplitter {
     public Map<String,List<String>> split(List<String> items){
         Map<String,List<String>> splitResult=new HashMap<>();
         List<DeliveryMethods> allDeliverMethods=new ArrayList<>();
+        List<String> distinctDeliveryMethods=new ArrayList<>();
         for (String item:items) {
             JSONArray deliveryMethods = (JSONArray) jsonConfigFile.get(item);
             allDeliverMethods.add(new DeliveryMethods(item,deliveryMethods));
+            for(Integer i=0;i!=deliveryMethods.length();i++){
+                if(!distinctDeliveryMethods.contains(deliveryMethods.get(i))){
+                    distinctDeliveryMethods.add(deliveryMethods.get(i).toString());
+                }
+            }
         }
+        System.out.println(distinctDeliveryMethods);
 
         return splitResult;
     }
