@@ -35,11 +35,35 @@ class BasketSplitterTest {
     }
 
     @Test
-    void emptyBasket1() {
+    void testEmptyBasket() {
         List<String> emptyBasket = new ArrayList<>();
         result=newBasket.split(emptyBasket);
         assertEquals("{}",result.toString());
     }
+
+
+    @Test
+    void testBasketWithWrongItem() {
+        List<String> basketWithWrongItem = Arrays.asList("Wrong Item","Cocoa Butter", "Tart - Raisin And Pecan", "Table Cloth 54x72 White", "Flower - Daisies", "Fond - Chocolate", "Cookies - Englishbay Wht");
+        result=newBasket.split(basketWithWrongItem);
+        assertEquals("{Courier=[Cocoa Butter, Tart - Raisin And Pecan, Table Cloth 54x72 White, Flower - Daisies, Cookies - Englishbay Wht], Pick-up point=[Fond - Chocolate]}",result.toString());
+    }
+
+    @Test
+    void testDuplicateItem() {
+        List<String> basketWithWrongItem = Arrays.asList("Cocoa Butter","Cocoa Butter", "Tart - Raisin And Pecan", "Table Cloth 54x72 White", "Flower - Daisies","Tart - Raisin And Pecan", "Fond - Chocolate", "Cookies - Englishbay Wht");
+        result=newBasket.split(basketWithWrongItem);
+        assertEquals("{Courier=[Cocoa Butter, Cocoa Butter, Tart - Raisin And Pecan, Table Cloth 54x72 White, Flower - Daisies, Tart - Raisin And Pecan, Cookies - Englishbay Wht], Pick-up point=[Fond - Chocolate]}",result.toString());
+    }
+
+    @Test
+    void testTooManyItems(){
+        List<String> tooBigBasket = Arrays.asList("Cocoa Butter","Cocoa Butter", "Tart - Raisin And Pecan", "Table Cloth 54x72 White", "Flower - Daisies","Tart - Raisin And Pecan", "Fond - Chocolate", "Cookies - Englishbay Wht","Cocoa Butter","Cocoa Butter", "Tart - Raisin And Pecan", "Table Cloth 54x72 White", "Flower - Daisies","Tart - Raisin And Pecan", "Fond - Chocolate", "Cookies - Englishbay Wht","Cocoa Butter","Cocoa Butter", "Tart - Raisin And Pecan", "Table Cloth 54x72 White", "Flower - Daisies","Tart - Raisin And Pecan", "Fond - Chocolate", "Cookies - Englishbay Wht","Cocoa Butter","Cocoa Butter", "Tart - Raisin And Pecan", "Table Cloth 54x72 White", "Flower - Daisies","Tart - Raisin And Pecan", "Fond - Chocolate", "Cookies - Englishbay Wht","Cocoa Butter","Cocoa Butter", "Tart - Raisin And Pecan", "Table Cloth 54x72 White", "Flower - Daisies","Tart - Raisin And Pecan", "Fond - Chocolate", "Cookies - Englishbay Wht","Cocoa Butter","Cocoa Butter", "Tart - Raisin And Pecan", "Table Cloth 54x72 White", "Flower - Daisies","Tart - Raisin And Pecan", "Fond - Chocolate", "Cookies - Englishbay Wht","Cocoa Butter","Cocoa Butter", "Tart - Raisin And Pecan", "Table Cloth 54x72 White", "Flower - Daisies","Tart - Raisin And Pecan", "Fond - Chocolate", "Cookies - Englishbay Wht","Cocoa Butter","Cocoa Butter", "Tart - Raisin And Pecan", "Table Cloth 54x72 White", "Flower - Daisies","Tart - Raisin And Pecan", "Fond - Chocolate", "Cookies - Englishbay Wht","Cocoa Butter","Cocoa Butter", "Tart - Raisin And Pecan", "Table Cloth 54x72 White", "Flower - Daisies","Tart - Raisin And Pecan", "Fond - Chocolate", "Cookies - Englishbay Wht","Cocoa Butter","Cocoa Butter", "Tart - Raisin And Pecan", "Table Cloth 54x72 White", "Flower - Daisies","Tart - Raisin And Pecan", "Fond - Chocolate", "Cookies - Englishbay Wht","Cocoa Butter","Cocoa Butter", "Tart - Raisin And Pecan", "Table Cloth 54x72 White", "Flower - Daisies","Tart - Raisin And Pecan", "Fond - Chocolate", "Cookies - Englishbay Wht","Cocoa Butter","Cocoa Butter", "Tart - Raisin And Pecan", "Table Cloth 54x72 White", "Flower - Daisies","Tart - Raisin And Pecan", "Fond - Chocolate", "Cookies - Englishbay Wht","Cocoa Butter","Cocoa Butter", "Tart - Raisin And Pecan", "Table Cloth 54x72 White", "Flower - Daisies","Tart - Raisin And Pecan", "Fond - Chocolate", "Cookies - Englishbay Wht","Cocoa Butter","Cocoa Butter", "Tart - Raisin And Pecan", "Table Cloth 54x72 White", "Flower - Daisies","Tart - Raisin And Pecan", "Fond - Chocolate", "Cookies - Englishbay Wht","Cocoa Butter","Cocoa Butter", "Tart - Raisin And Pecan", "Table Cloth 54x72 White", "Flower - Daisies","Tart - Raisin And Pecan", "Fond - Chocolate", "Cookies - Englishbay Wht","Cocoa Butter","Cocoa Butter", "Tart - Raisin And Pecan", "Table Cloth 54x72 White", "Flower - Daisies","Tart - Raisin And Pecan", "Fond - Chocolate", "Cookies - Englishbay Wht");
+        result=newBasket.split(tooBigBasket);
+        assertEquals("{}",result.toString());
+    }
+
+
 
 
 

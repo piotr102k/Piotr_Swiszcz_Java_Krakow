@@ -28,13 +28,19 @@ public class BasketSplitter {
         Map<String,List<String>> splitResult=new LinkedHashMap<>();
         List<DeliveryMethods> allDeliverMethods=new ArrayList<>();
 
-        if(items.size()==0){
+        if(items.size()==0 || items.size()>100){
             return new HashMap<>();
         }
 
+
         for (String item:items) {
-            JSONArray deliveryMethods = (JSONArray) jsonConfigFile.get(item);
-            allDeliverMethods.add(new DeliveryMethods(item,deliveryMethods));
+            try {
+                JSONArray deliveryMethods = (JSONArray) jsonConfigFile.get(item);
+                allDeliverMethods.add(new DeliveryMethods(item, deliveryMethods));
+            }catch (org.json.JSONException e){
+
+            }
+
         }
 
         Integer numberOfAcountedForItems=0;
