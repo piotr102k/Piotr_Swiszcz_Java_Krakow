@@ -1,12 +1,11 @@
 package com.ocado.basket;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class BasketSplitter {
@@ -27,9 +26,12 @@ public class BasketSplitter {
     }
     public Map<String,List<String>> split(List<String> items){
         Map<String,List<String>> splitResult=new HashMap<>();
+        List<DeliveryMethods> allDeliverMethods=new ArrayList<>();
         for (String item:items) {
-            System.out.println(jsonConfigFile.get(item));
+            JSONArray deliveryMethods = (JSONArray) jsonConfigFile.get(item);
+            allDeliverMethods.add(new DeliveryMethods(item,deliveryMethods));
         }
+
         return splitResult;
     }
 }
