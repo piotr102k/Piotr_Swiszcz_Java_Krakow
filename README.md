@@ -5,8 +5,8 @@ A program that splits recievied items into the most optimal way of delivering th
 # Instalation
 
 1. Clone the repository
-2. Build the project using Maven
-3. Run the projec
+2. Build the project using [Maven](https://spring.io/guides/gs/maven)
+3. Run the project
 
 # How to use
 
