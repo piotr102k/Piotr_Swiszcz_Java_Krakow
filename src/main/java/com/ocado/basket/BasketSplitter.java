@@ -27,20 +27,36 @@ public class BasketSplitter {
     public Map<String,List<String>> split(List<String> items){
         Map<String,List<String>> splitResult=new HashMap<>();
         List<DeliveryMethods> allDeliverMethods=new ArrayList<>();
-        List<String> distinctDeliveryMethods=new ArrayList<>();
+
 
         for (String item:items) {
             JSONArray deliveryMethods = (JSONArray) jsonConfigFile.get(item);
             allDeliverMethods.add(new DeliveryMethods(item,deliveryMethods));
-            for(Integer i=0;i!=deliveryMethods.length();i++){
-                if(!distinctDeliveryMethods.contains(deliveryMethods.get(i))){
-                    distinctDeliveryMethods.add(deliveryMethods.get(i).toString());
-                }
-            }
         }
 
-        while(allDeliverMethods.size()!=0){
+        Integer numberOfAcountedForItems=0;
+        while(numberOfAcountedForItems!=allDeliverMethods.size()){
+            List<String> distinctDeliveryMethods=makeDistinctList(allDeliverMethods);
+
+
+
             String MostUsedDeliveryMethod=FindMostUsedDeliveryMethod(allDeliverMethods,distinctDeliveryMethods);
+
+            List<String> deliveredItems=new ArrayList<>();
+
+
+
+            for(DeliveryMethods deliveryMethod: allDeliverMethods){
+
+                if(deliveryMethod.contains(MostUsedDeliveryMethod) && deliveryMethod.accountedFor==false){
+                    deliveredItems.add(deliveryMethod.name);
+                    deliveryMethod.accountedFor=true;
+                    numberOfAcountedForItems++;
+                }
+            }
+
+
+            splitResult.put(MostUsedDeliveryMethod,deliveredItems);
         }
 
         return splitResult;
@@ -53,11 +69,25 @@ public class BasketSplitter {
 
         for(DeliveryMethods deliveryMethod:allMethods){
             for(Integer i=0;i!=deliveryMethod.methods.length();i++){
-                correspondingNumberOfUseCases.set(distinctMethods.indexOf(deliveryMethod.methods.get(i)),correspondingNumberOfUseCases.get(distinctMethods.indexOf(deliveryMethod.methods.get(i)))+1);
+                if( deliveryMethod.accountedFor==false)
+                    correspondingNumberOfUseCases.set(distinctMethods.indexOf(deliveryMethod.methods.get(i)),correspondingNumberOfUseCases.get(distinctMethods.indexOf(deliveryMethod.methods.get(i)))+1);
             }
         }
 
         Integer maxNumberOfUseCases=Collections.max(correspondingNumberOfUseCases);
         return distinctMethods.get(correspondingNumberOfUseCases.indexOf(maxNumberOfUseCases));
+    }
+    public List<String> makeDistinctList(List<DeliveryMethods> allMethods){
+        List<String> distinctList=new ArrayList<>();
+
+        for(DeliveryMethods deliveryMethods:allMethods){
+            for(Integer i=0;i!=deliveryMethods.methods.length();i++){
+                if(!distinctList.contains(deliveryMethods.methods.get(i)) && deliveryMethods.accountedFor==false){
+                    distinctList.add(deliveryMethods.methods.get(i).toString());
+                }
+            }
+        }
+
+        return distinctList;
     }
 }
