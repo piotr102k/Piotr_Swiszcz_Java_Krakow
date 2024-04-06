@@ -8,9 +8,9 @@ import java.io.FileNotFoundException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class BasketSplitter{
+public class BasketSplitter {
     JSONObject jsonConfigFile;
-    public BasketSplitter(String absolutePathToConfigFile) {
+    public BasketSplitter(String absolutePathToConfigFile){
         try {
             Scanner scan = new Scanner(new File(absolutePathToConfigFile));
             String inputString = new String();
@@ -20,8 +20,7 @@ public class BasketSplitter{
             scan.close();
             jsonConfigFile=new JSONObject(inputString);
         } catch(FileNotFoundException e){
-            System.out.println("error 404 file not found");
-            throw new RuntimeException();
+
         }
 
     }
@@ -30,8 +29,7 @@ public class BasketSplitter{
         List<DeliveryMethods> allDeliverMethods=new ArrayList<>();
 
         if(items.size()==0){
-            System.out.println("error 202 empty List");
-            throw new RuntimeException();
+            return new HashMap<>();
         }
 
         for (String item:items) {

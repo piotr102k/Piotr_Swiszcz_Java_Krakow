@@ -17,7 +17,7 @@ public class Main {
         List<String> basket2 = Arrays.asList("Fond - Chocolate", "Chocolate - Unsweetened", "Nut - Almond, Blanched, Whole", "Haggis", "Mushroom - Porcini Frozen", "Cake - Miini Cheesecake Cherry", "Sauce - Mint", "Longan", "Bag Clear 10 Lb", "Nantucket - Pomegranate Pear", "Puree - Strawberry", "Numi - Assorted Teas", "Apples - Spartan", "Garlic - Peeled", "Cabbage - Nappa", "Bagel - Whole White Sesame", "Tea - Apple Green Tea");
         List<String> emptyBasket = new ArrayList<>();
 
-        System.out.println(newBasket.split(emptyBasket));
+        System.out.println(newBasket.split(basket2));
 
     }
 }
