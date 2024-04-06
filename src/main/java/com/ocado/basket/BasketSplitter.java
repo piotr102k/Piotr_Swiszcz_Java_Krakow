@@ -1,6 +1,5 @@
 package com.ocado.basket;
 
-
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,14 +36,9 @@ public class BasketSplitter {
         Integer numberOfAcountedForItems=0;
         while(numberOfAcountedForItems!=allDeliverMethods.size()){
             List<String> distinctDeliveryMethods=makeDistinctList(allDeliverMethods);
-
-
-
-            String MostUsedDeliveryMethod=FindMostUsedDeliveryMethod(allDeliverMethods,distinctDeliveryMethods);
-
             List<String> deliveredItems=new ArrayList<>();
 
-
+            String MostUsedDeliveryMethod=FindMostUsedDeliveryMethod(allDeliverMethods,distinctDeliveryMethods);
 
             for(DeliveryMethods deliveryMethod: allDeliverMethods){
 
@@ -56,9 +50,7 @@ public class BasketSplitter {
             }
 
             splitResult.put(MostUsedDeliveryMethod,deliveredItems);
-
         }
-
 
         return splitResult;
     }
@@ -66,7 +58,6 @@ public class BasketSplitter {
         List<Integer> correspondingNumberOfUseCases=new ArrayList<>();
         for(Integer i=0;i!=distinctMethods.size();i++)
             correspondingNumberOfUseCases.add(0);
-
 
         for(DeliveryMethods deliveryMethod:allMethods){
             for(Integer i=0;i!=deliveryMethod.methods.length();i++){
