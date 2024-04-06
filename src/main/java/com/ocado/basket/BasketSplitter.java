@@ -28,6 +28,7 @@ public class BasketSplitter {
         Map<String,List<String>> splitResult=new HashMap<>();
         List<DeliveryMethods> allDeliverMethods=new ArrayList<>();
         List<String> distinctDeliveryMethods=new ArrayList<>();
+
         for (String item:items) {
             JSONArray deliveryMethods = (JSONArray) jsonConfigFile.get(item);
             allDeliverMethods.add(new DeliveryMethods(item,deliveryMethods));
@@ -37,8 +38,26 @@ public class BasketSplitter {
                 }
             }
         }
-        System.out.println(distinctDeliveryMethods);
+
+        while(allDeliverMethods.size()!=0){
+            String MostUsedDeliveryMethod=FindMostUsedDeliveryMethod(allDeliverMethods,distinctDeliveryMethods);
+        }
 
         return splitResult;
+    }
+    public String FindMostUsedDeliveryMethod(List<DeliveryMethods> allMethods,List<String> distinctMethods){
+        List<Integer> correspondingNumberOfUseCases=new ArrayList<>();
+        for(Integer i=0;i!=distinctMethods.size();i++)
+            correspondingNumberOfUseCases.add(0);
+
+
+        for(DeliveryMethods deliveryMethod:allMethods){
+            for(Integer i=0;i!=deliveryMethod.methods.length();i++){
+                correspondingNumberOfUseCases.set(distinctMethods.indexOf(deliveryMethod.methods.get(i)),correspondingNumberOfUseCases.get(distinctMethods.indexOf(deliveryMethod.methods.get(i)))+1);
+            }
+        }
+
+        Integer maxNumberOfUseCases=Collections.max(correspondingNumberOfUseCases);
+        return distinctMethods.get(correspondingNumberOfUseCases.indexOf(maxNumberOfUseCases));
     }
 }
