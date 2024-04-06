@@ -1,5 +1,6 @@
 package com.ocado.basket;
 
+import java.io.IOException;
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,9 +8,9 @@ import java.io.FileNotFoundException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class BasketSplitter {
+public class BasketSplitter{
     JSONObject jsonConfigFile;
-    public BasketSplitter(String absolutePathToConfigFile){
+    public BasketSplitter(String absolutePathToConfigFile) {
         try {
             Scanner scan = new Scanner(new File(absolutePathToConfigFile));
             String inputString = new String();
@@ -20,6 +21,7 @@ public class BasketSplitter {
             jsonConfigFile=new JSONObject(inputString);
         } catch(FileNotFoundException e){
             System.out.println("error 404 file not found");
+            throw new RuntimeException();
         }
 
     }
@@ -27,6 +29,10 @@ public class BasketSplitter {
         Map<String,List<String>> splitResult=new LinkedHashMap<>();
         List<DeliveryMethods> allDeliverMethods=new ArrayList<>();
 
+        if(items.size()==0){
+            System.out.println("error 202 empty List");
+            throw new RuntimeException();
+        }
 
         for (String item:items) {
             JSONArray deliveryMethods = (JSONArray) jsonConfigFile.get(item);
